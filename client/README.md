@@ -1,3 +1,12 @@
+## Environmental Variables
+
+create a `.env` in the `client/` directory. The file should contain your acces token for the Genius API. https://genius.com/api-clients/new
+```
+REACT_APP_ACCESS_TOKEN_GENIUS=[your_token_here]
+```
+
+
+__________________
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

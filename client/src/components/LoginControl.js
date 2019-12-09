@@ -6,7 +6,8 @@ class LoginControl extends Component {
             return null;
         } else {
             return (
-            <a href="http://localhost:8888/">
+                // href should be a link to some spotify authorization server
+            <a href="http://localhost:8888/"> 
               <button>Login with Spotify</button>
             </a>);
         }
