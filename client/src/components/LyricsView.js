@@ -5,7 +5,6 @@ class LyricsView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            embeded: "",  
             song_url: "https://www.genius.com/",
             img_url: "",
             api_path: "",
@@ -15,19 +14,17 @@ class LyricsView extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.song !== prevProps.song || this.props.artist !== prevProps.artist) {
-               // THIS SHOULDN*T BE DONE HER BUT I DONT CARE ATM
-            const base_url = 'https://api.genius.com/',
-                ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN_GENIUS, // THIS IS SECRET
-                songs_url = base_url + 'songs/',
-                search_url = base_url + 'search?q=';
-            const searchQuery = encodeURIComponent(this.props.song+ " " + this.props.artist).trim();
+            const 
+                base_url = 'https://api.genius.com/',
+                ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN_GENIUS,
+                search_url = base_url + 'search?q=',
+                searchQuery = encodeURIComponent(this.props.song+ " " + this.props.artist).trim();
+
             fetch(search_url + searchQuery + ';access_token=' + ACCESS_TOKEN)
             .then(response => {
                 return response.json()})
             .then(json => {
-                return json.response.hits[0];
-                
-            })
+                return json.response.hits[0];})
             .then(songObject => {
                 if (songObject) {
                     this.setState({
@@ -45,7 +42,6 @@ class LyricsView extends Component {
             <div>
                 <img src={this.state.img_url} alt="" height="320" width="320" />
                 <div>{this.state.song_name} lyrics on <a href={this.state.song_url} rel="noopener noreferrer" target="_blank">Genius</a></div>
-                
             </div>
         );
     }
