@@ -57,14 +57,24 @@ class App extends Component {
   }
 
   render() {  
+    const isLoggedIn = this.state.isLoggedIn;
+    let listeningDisplay;
+    let button;
+
+    if (isLoggedIn) {
+      listeningDisplay = <p>You are listening to {this.state.nowPlaying.name} by {this.state.nowPlaying.artist.name}</p>;
+      button = <button onClick={() => this.getNowPlaying()}>Get current song</button>;
+    } else {
+      listeningDisplay = <p>What are you listening to?</p>;
+      button = <LoginControl isLoggedIn={this.state.isLoggedIn} />;
+    }
+
     return (
       <div className="App">
         <header className="App-header">
-          <p>You are listening to {this.state.nowPlaying.name} by {this.state.nowPlaying.artist.name}</p>
+          { listeningDisplay }
           <LyricsView song={this.state.nowPlaying.name} artist={this.state.nowPlaying.artist.name}></LyricsView>
-          
-          <LoginControl isLoggedIn={this.state.isLoggedIn} />
-          <button onClick={() => this.getNowPlaying()}>Get current song</button>
+          { button }
         </header>
       </div>
     );
