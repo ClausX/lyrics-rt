@@ -6,8 +6,7 @@ class LoginControl extends Component {
             return null;
         } else {
             return (
-                // href should be a link to some spotify authorization server
-            <a href="http://localhost:8888/"> 
+            <a href="https://hidden-taiga-18909.herokuapp.com//"> 
               <button>Login with Spotify</button>
             </a>);
         }
