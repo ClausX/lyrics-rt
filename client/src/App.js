@@ -25,13 +25,15 @@ class App extends Component {
     }
   }
 
-  
   componentDidMount() {
     if (this.state.isLoggedIn){
       this.getNowPlaying();
     }
   }
 
+  /**
+   * Code in getHashParams was used in spotify example, and copied from there
+   */
   getHashParams() {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -43,23 +45,24 @@ class App extends Component {
   }
 
   getNowPlaying() {
-      spotifyWebApi.getMyCurrentPlaybackState()
-      .then(response => {
-        this.setState({
-          nowPlaying: {
-            name: response.item.name,
-            artist: {
-              name: response.item.artists[0].name
-            }
+    spotifyWebApi.getMyCurrentPlaybackState()
+    .then(response => {
+      this.setState({
+        nowPlaying: {
+          name: response.item.name,
+          artist: {
+            name: response.item.artists[0].name
           }
-        })
-      });
+        }
+      })
+    });
   }
 
   render() {  
     const isLoggedIn = this.state.isLoggedIn;
-    let listeningDisplay;
-    let button;
+    let 
+      listeningDisplay, 
+      button;
 
     if (isLoggedIn) {
       listeningDisplay = <p>You are listening to {this.state.nowPlaying.name} by {this.state.nowPlaying.artist.name}</p>;
