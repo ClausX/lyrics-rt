@@ -7,7 +7,7 @@ class LoginControl extends Component {
         } else {
             return (
             <a href="https://hidden-taiga-18909.herokuapp.com//"> 
-              <button>Login with Spotify</button>
+              <button>Log in with Spotify</button>
             </a>);
         }
     }
