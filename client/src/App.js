@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import LyricsView from './components/LyricsView.js';
+import LyricsView from './components/LyricsView.function.js';
 import LoginControl from './components/LoginControl.js'
 import SpotifyWebApi from 'spotify-web-api-js';
 require('dotenv').config();
