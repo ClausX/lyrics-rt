@@ -10,28 +10,40 @@ class LyricsView extends Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    async componentDidUpdate(prevProps) {
         if (this.props.song !== prevProps.song || this.props.artist !== prevProps.artist) {
-            const baseUrl = 'https://api.genius.com/';
-            const ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN_GENIUS;
-            const searchUrl = baseUrl + 'search?q=';
-            const searchQuery = encodeURIComponent(`${this.props.song} ${this.props.artist}`).trim();
-
-            fetch(searchUrl + searchQuery + ';access_token=' + ACCESS_TOKEN)
-            .then(response => {
-                return response.json()})
-            .then(json => {
-                return json.response.hits[0];})
-            .then(songObject => {
-                if (songObject) {
-                    this.setState({
-                        songUrl: songObject.result.url,
-                        songName: songObject.result.title,
-                        imgUrl: songObject.result.song_art_image_url
-                    });
-                }
+            const songData = await this.getSongData(this.props.song, this.props.artist, process.env.REACT_APP_ACCESS_TOKEN_GENIUS);
+            this.setState({
+                songUrl: songData.result.url,
+                songName: songData.result.title,
+                imgUrl: songData.result.song_art_image_url
             });
         }
+    }
+
+    async getSongData(song, artist, token) {
+        const baseUrl = 'https://api.genius.com/';
+        const searchUrl = baseUrl + 'search?q=';
+        const searchQuery = encodeURIComponent(`${song} ${artist}`).trim();
+
+        try {
+            const response = await fetch(searchUrl + searchQuery + ';access_token=' + token);
+            const json = await response.json();
+            return json.response.hits[0];
+        } catch (error) {
+            
+        }
+        
+/*
+        .then(response => {
+            return response.json()})
+        .then(json => {
+            return json.response.hits[0];})
+        .then(songObject => {
+            if (songObject) {
+                return songObject;
+            }
+        });*/
     }
 
     render() {
